@@ -1,10 +1,10 @@
 package day01
 
-import java.io.File
+import getResourceAsFile
 
 const val fileName = "day01_input.txt"
 
-fun main(args: Array<String>) {
+fun main() {
     println("Lets start Advent of Code Day 01!")
 
     val file = getResourceAsFile(fileName)
@@ -26,11 +26,3 @@ fun main(args: Array<String>) {
     val topThreeElfSum = sums.values.sortedDescending().take(3).sum()
     println("The three elfs with the most calories have $topThreeElfSum together")
 }
-
-fun getResourceAsFile(path: String): File? =
-    object {}
-        .javaClass
-        .classLoader
-        .getResource(path)
-        ?.path
-        ?.let { File(it) }
