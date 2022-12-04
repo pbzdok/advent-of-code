@@ -5,10 +5,10 @@ import getResourceAsFile
 const val fileName = "day02_input.txt"
 
 fun main() {
-    println("Lets start Advent of Code Day 02!")
+    println("✨Let's start Advent of Code Day 02!✨")
     val file = getResourceAsFile(fileName)
 
-    println("Part 1:")
+    println("🎄Part 1:")
     val score = file?.useLines {
         it.map { s ->
             val opponentSign = Sign.fromChar(s[0])
@@ -22,7 +22,7 @@ fun main() {
     }
     println("With the strategy guide I would get a Score of $score!")
 
-    println("Part 2")
+    println("🎄Part 2")
     val score2 = file?.useLines {
         it.map { s ->
             val opponentSign = Sign.fromChar(s[0])

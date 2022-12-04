@@ -5,11 +5,11 @@ import getResourceAsFile
 const val fileName = "day03_input.txt"
 
 fun main() {
-    println("Lets start Advent of Code Day 03!")
+    println("✨Let's start Advent of Code Day 03!✨")
 
     val file = getResourceAsFile(fileName)
 
-    println("Part 1:")
+    println("🎄Part 1:")
     val result = file?.useLines { lines ->
         lines.map {
             val half1Items = it.subSequence(0, it.length / 2).toSet()
@@ -20,7 +20,7 @@ fun main() {
     }
     println("The sum of priorities of all duplicate items equals $result")
 
-    println("Part 2:")
+    println("🎄Part 2:")
     val result2 = file?.useLines { lines ->
         lines.chunked(3)
             .map { chunk ->

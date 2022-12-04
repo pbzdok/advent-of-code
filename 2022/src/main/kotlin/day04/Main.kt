@@ -5,11 +5,11 @@ import getResourceAsFile
 const val fileName = "day04_input.txt"
 
 fun main() {
-    println("Lets start Advent of Code Day 04!")
+    println("✨Let's start Advent of Code Day 04!✨")
 
     val file = getResourceAsFile(fileName)
 
-    println("Part 1:")
+    println("🎄Part 1:")
     val result = file?.useLines { lines ->
         lines.map {
             val firstSection = parseRange(it.substringBefore(","))
@@ -22,7 +22,7 @@ fun main() {
     }
     println("There are $result pairs containing each other completely.")
 
-    println("Part 2:")
+    println("🎄Part 2:")
     val result2 = file?.useLines { lines ->
         lines.map {
             val firstSection = parseRange(it.substringBefore(","))

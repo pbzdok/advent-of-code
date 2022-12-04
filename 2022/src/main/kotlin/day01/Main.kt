@@ -5,7 +5,7 @@ import getResourceAsFile
 const val fileName = "day01_input.txt"
 
 fun main() {
-    println("Lets start Advent of Code Day 01!")
+    println("✨Let's start Advent of Code Day 01!✨")
 
     val file = getResourceAsFile(fileName)
     val sums = mutableMapOf<Int, Int>()
@@ -21,8 +21,8 @@ fun main() {
     }
 
     val mostCalorieElf = sums.maxBy { it.value }
-    println("Elf number ${mostCalorieElf.key} has most calories (${mostCalorieElf.value}) with him")
+    println("🧝Elf number ${mostCalorieElf.key} has most calories (${mostCalorieElf.value}) with him")
 
     val topThreeElfSum = sums.values.sortedDescending().take(3).sum()
-    println("The three elfs with the most calories have $topThreeElfSum together")
+    println("🧝🧝🧝The three elfs with the most calories have $topThreeElfSum together")
 }
