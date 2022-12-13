@@ -12,27 +12,47 @@ fun main() {
 
     val file = getResourceAsFile(fileName)!!
 
-    val ropeLength = 1
     val visitedTailPositions = mutableSetOf<Vec2>()
-    val start = Vec2(0, 0)
-    var head = start
-    var tail = start.also { visitedTailPositions.add(it) }
+    val visitedTailPositions2 = mutableSetOf<Vec2>()
+
+    val shortRope = Rope(2)
+    val longRope = Rope(10)
 
     file.forEachLine { line ->
         val direction = Vec2.fromChar(line[0])
-        val n = line[2].digitToInt()
+        val n = line.substringAfter(' ').toInt()
 
         repeat(n) {
-            head += direction
-            val th = head - tail
-            if (th.length() > ropeLength) {
-                tail += th.scale(ropeLength)
-                visitedTailPositions.add(tail)
+            shortRope.move(direction)
+            visitedTailPositions.add(shortRope.tail())
+
+            longRope.move(direction)
+            visitedTailPositions2.add(longRope.tail())
+        }
+    }
+    println("🪢 The tail of the short rope visited ${visitedTailPositions.size} positions")
+    println("🪢 The tail of the short rope visited ${visitedTailPositions2.size} positions")
+}
+
+private data class Rope(val length: Int) {
+    private val knots = Array(length) { Vec2(0, 0) }
+
+    fun tail(): Vec2 = knots.last()
+
+    fun move(v: Vec2) {
+        var head = knots.first()
+        head += v
+        knots[0] = head
+        for (i in 1 until knots.size) {
+            val leadingKnot = knots[i - 1]
+            var knotToFollow = knots[i]
+            val delta = leadingKnot - knotToFollow
+            if (delta.length() > 1) {
+                knotToFollow += delta.normalize()
+                knots[i] = knotToFollow
             }
         }
     }
-
-    println(visitedTailPositions.size)
 }
 
 private data class Vec2(
@@ -43,8 +63,6 @@ private data class Vec2(
     operator fun plus(other: Vec2) = Vec2(x + other.x, y + other.y)
     operator fun minus(other: Vec2) = Vec2(x - other.x, y - other.y)
     operator fun times(i: Int) = Vec2(x * i, y * i)
-
-    fun scale(i: Int): Vec2 = normalize() * i
 
     fun normalize(): Vec2 {
         return Vec2(
