@@ -16,6 +16,9 @@ fn main() {
 
 	day02.run_task()!
 	b.measure('Day 02')
-	
+
+	day03.run_task()!
+	b.measure('Day 03')
+
 	b.stop()
 }
