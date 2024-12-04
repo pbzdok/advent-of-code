@@ -15,12 +15,12 @@ fn part1(lines []string) int {
 	input := lines.join_lines()
 	pattern := r'mul\(\d+,\d+\)'
 	mut re := regex.regex_opt(pattern) or { panic(err) }
-	list := re.find_all_str(input)
+	operations := re.find_all_str(input)
 
 	mut sum_of_products := 0
-	for l in list {
-		a, b := l.trim('mul()').split_once(',') or { continue }
-		sum_of_products += a.int() * b.int()
+	for op in operations {
+		a, b := get_factors(op) or { continue }
+		sum_of_products += a * b
 	}
 
 	return sum_of_products
@@ -30,12 +30,12 @@ fn part2(lines []string) int {
 	input := lines.join_lines()
 	pattern := r"(do\(\))|(don't\(\))|(mul\(\d+,\d+\))"
 	mut re := regex.regex_opt(pattern) or { panic(err) }
-	list := re.find_all_str(input)
+	operations := re.find_all_str(input)
 
 	mut is_enabled := true
 	mut sum_of_products := 0
-	for l in list {
-		match l {
+	for op in operations {
+		match op {
 			'do()' {
 				is_enabled = true
 				continue
@@ -47,10 +47,15 @@ fn part2(lines []string) int {
 			else {}
 		}
 		if is_enabled {
-			a, b := l.trim('mul()').split_once(',') or { continue }
-			sum_of_products += a.int() * b.int()
+			a, b := get_factors(op) or { continue }
+			sum_of_products += a * b
 		}
 	}
 
 	return sum_of_products
+}
+
+fn get_factors(op string) ?(int, int) {
+	a, b := op.trim('mul()').split_once(',') or { return none }
+	return a.int(), b.int()
 }
