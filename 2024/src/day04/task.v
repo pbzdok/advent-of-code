@@ -31,7 +31,19 @@ fn part1(lines []string) int {
 }
 
 fn part2(lines []string) int {
-	return 0
+	mut grid := [][]rune{}
+	for l in lines {
+		grid << l.runes()
+	}
+
+	mut total := 0
+
+	total += search_x(pattern_2_2d, grid)
+	total += search_x(pattern_2_2d_2, grid)
+	total += search_x(pattern_2_2d_3, grid)
+	total += search_x(pattern_2_2d_4, grid)
+
+	return total
 }
 
 fn search_rows(pattern []rune, grid [][]rune) int {
@@ -127,6 +139,31 @@ fn search_inverted_diagonals(pattern [][]rune, grid [][]rune) int {
 			}
 		}
 		i--
+	}
+
+	return count
+}
+
+fn search_x(pattern [][]rune, grid [][]rune) int {
+	p := pattern.len
+	n := grid.len
+	m := grid[0].len
+	mut count := 0
+
+	for i in 0 .. n - p + 1 {
+		for j in 0 .. m - p + 1 {
+			mut is_match := true
+			for x in 0 .. p {
+				if grid[i + x][j + x] != pattern[x][x]
+					|| grid[i + x][j + p - 1 - x] != pattern[x][p - 1 - x] {
+					is_match = false
+					break
+				}
+			}
+			if is_match {
+				count += 1
+			}
+		}
 	}
 
 	return count

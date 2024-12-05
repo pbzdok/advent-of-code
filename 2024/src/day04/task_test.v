@@ -20,5 +20,5 @@ fn test_part1() {
 
 fn test_part2() {
 	result := part2(test_input)
-	assert result == 42
+	assert result == 9
 }
